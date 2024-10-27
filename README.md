@@ -153,7 +153,8 @@ Tools are nothing more than a shell script with a `init` and `execute` function.
 You can find examples and available tools in the [tools folder](https://github.com/Hezkore/bash-ai/tree/main/tools).\
 Feel free to move them to your `~/.baip_tools` directory to enable them!
 
-##  The history function is what it makes it different to the Original script by Hezkore/bash-ai.
+##  History function like in a CLI
+The history function is what it makes it different to the Original script by Hezkore/bash-ai.
 
 ## Known Issues
 
