@@ -69,8 +69,10 @@ Bash AI offers the following features:
 curl -sS https://github.com/NeverBeLazyG/bash-ai-plus/main/install.sh | bash
 ```
 
-Be sure to have curl and jq (sudo apt install jq), installed before running. 
-
+Be sure to have curl and jq installed before running.
+```bash
+sudo apt install jq
+```
 > [!WARNING]
 > Never run unknown scripts without reviewing them for safety. Read the install script [here](https://github.com/NeverBeLazyG/bash-ai-plus/main/install.sh).
 
