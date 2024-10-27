@@ -4,8 +4,9 @@
 
 Just press arrow keys to view your Prompt history like you would use in in a normal CLI.
 
+![image](https://github.com/user-attachments/assets/5530ad20-e460-4c50-9dcc-ceb919cb66da)
 
-![image](https://github.com/user-attachments/assets/32f529e0-8669-4c49-9701-8cba619df84d)
+
 
 
 
