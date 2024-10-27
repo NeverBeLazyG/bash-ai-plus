@@ -10,7 +10,7 @@ Just press arrow keys to view your Prompt history like you would use in in a nor
 
 
 
-Leveraging the newest OpenAI's capabilities, it allows you to ask questions and perform terminal-based tasks using natural language (English, German etc.). It provides answers and command suggestions based on your input and allows you to execute or edit the suggested commands if desired.
+Leveraging the newest OpenAI's capabilities (standard model used: gpt-4o-mini, can be changed in config file), it allows you to ask questions and perform terminal-based tasks using natural language (English, German etc.). It provides answers and command suggestions based on your input and allows you to execute or edit the suggested commands if desired.
 
 Bash AI is not only powerful out of the box, but also expandable!\
 With its plugin architecture, you can easily add your own tools, thereby empowering Bash AI to accomplish even more, and extending its functionality beyond its original capabilities.
