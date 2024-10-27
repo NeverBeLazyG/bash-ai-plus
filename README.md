@@ -1,4 +1,4 @@
-# Bash AI
+# Bash AI Plus
 
 ## Bash AI Plus _(baip)_ is an advanced Bash shell script functioning as an AI-powered terminal assistant, with Prompt HISTORY functionality. Just press arrow keys to view your Prompt history like you would use in in a normal CLI.
 
