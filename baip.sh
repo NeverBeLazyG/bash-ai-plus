@@ -1,8 +1,9 @@
 #!/bin/bash
 # -*- Mode: sh; coding: utf-8; indent-tabs-mode: t; tab-width: 4 -*-
-
+HISTORY_INPUT_FILE="/tmp/input_history"
+MAX_HISTORY_LINES=1000
 # Bash AI
-# https://github.com/Hezkore/bash-ai
+# https://github.com/NeverBeLazyG/bash-ai-plus
 
 # Make sure required tools are installed
 if [ ! -x "$(command -v jq)" ]; then
@@ -28,7 +29,7 @@ if [ ${#DISTRO_INFO} -le 1 ]; then
 fi
 
 # Version of Bash AI
-VERSION="1.0.5"
+VERSION="1.0.6"
 
 # Global variables
 PRE_TEXT="  "  # Prefix for text output
@@ -55,6 +56,7 @@ RESET_COLOR="\e[0m"
 
 # Default query constants, these are used as default values for different types of queries
 DEFAULT_EXEC_QUERY="Return only a single compact JSON object containing 'cmd' and 'info' fields. 'cmd' must always contain one or multiple commands to perform the task specified in the user query. 'info' must always contain a single-line string detailing the actions 'cmd' will perform and the purpose of all command flags. 'cmd' may output a shell script to perform complex tasks. 'cmd' may be omittied as a last resort if no command can be suggested."
+
 DEFAULT_QUESTION_QUERY="Return only a single compact JSON object containing a 'info' field. 'info' must always contain a single-line string terminal-related answer to the user query."
 DEFAULT_ERROR_QUERY="Return only a single compact JSON object containing 'cmd' and 'info' fields. 'cmd' is optional. 'cmd' must always contain a suggestion on how to fix, solve or repair the error in the user query. 'info' must always be a single-line string explaining what the error in the user query means, why it happened, and why 'cmd' might fix it. Use your tools to find out why the error occured and offer alternatives."
 DYNAMIC_SYSTEM_QUERY="" # After most user queries, we'll add some dynamic system information to the query
@@ -196,7 +198,7 @@ config=$(cat "$CONFIG_FILE")
 OPENAI_KEY=$(echo "${config[@]}" | grep -oP '(?<=^key=).+')
 if [ -z "$OPENAI_KEY" ]; then
 	 # Prompt user to input OpenAI key if not found
-	echo "To use Bash AI, please input your OpenAI key into the config file located at $CONFIG_FILE"
+	echo "To use Bash AI Plus, please input your OpenAI key into the config file located at $CONFIG_FILE"
 	echo -ne "$SHOW_CURSOR"
 	exit 1
 fi
@@ -396,6 +398,37 @@ run_tool() {
 	SKIP_SYSTEM_MSG=true
 }
 
+setup_history() {
+    # Create history file if it doesn't exist
+    touch "$HISTORY_INPUT_FILE"
+    
+    # Trim history file if it exceeds MAX_HISTORY_LINES
+    if [ $(wc -l < "$HISTORY_INPUT_FILE") -gt "$MAX_HISTORY_LINES" ]; then
+        tail -n "$MAX_HISTORY_LINES" "$HISTORY_INPUT_FILE" > "${HISTORY_INPUT_FILE}.tmp"
+        mv "${HISTORY_INPUT_FILE}.tmp" "$HISTORY_INPUT_FILE"
+    fi
+    
+    # Set up readline to use our custom history file
+    export HISTFILE="$HISTORY_INPUT_FILE"
+    export HISTSIZE=$MAX_HISTORY_LINES
+    export HISTFILESIZE=$MAX_HISTORY_LINES
+    
+    # Enable history expansion
+    set -o history
+    
+    # Load the history into readline
+    history -r "$HISTORY_INPUT_FILE"
+}
+
+save_to_history() {
+    local input="$1"
+    # Don't save empty commands or duplicates of the last command
+    if [ -n "$input" ] && [ "$input" != "$(tail -n 1 "$HISTORY_INPUT_FILE" 2>/dev/null)" ]; then
+        echo "$input" >> "$HISTORY_INPUT_FILE"
+        history -s "$input"
+    fi
+}
+
 # Make sure all queries are JSON safe
 DEFAULT_EXEC_QUERY=$(json_safe "$DEFAULT_EXEC_QUERY")
 DEFAULT_QUESTION_QUERY=$(json_safe "$DEFAULT_QUESTION_QUERY")
@@ -409,7 +442,7 @@ USER_QUERY=$*
 # Are we entering interactive mode?
 if [ -z "$USER_QUERY" ]; then
 	INTERACTIVE_MODE=true
-	print "🤖 ${TITLE_TEXT_COLOR}Bash AI v${VERSION}${RESET_COLOR}"
+	print "🤖 ${TITLE_TEXT_COLOR}Bash AI Plus v${VERSION}${RESET_COLOR}"
 	# List all tools loaded in TOOL_MAP
 	if [ ${#TOOL_MAP[@]} -gt 0 ]; then
 		echo
@@ -433,9 +466,18 @@ while [ "$INTERACTIVE_MODE" = true ] || [ "$NEEDS_TO_RUN" = true ] || [ "$AWAIT_
 	# Ask for user query if we're in Interactive Mode
 	if [ "$SKIP_USER_QUERY" != true ]; then
 		while [ -z "$USER_QUERY" ]; do
-			# No query, prompt user for query
+		    # Setup history functionality
+            setup_history
+            
+            # No query, prompt user for query with history support		
 			echo -ne "$SHOW_CURSOR"
 			read -e -r -p "Bash AI> " USER_QUERY
+
+			            # Save valid input to history
+            if [ -n "$USER_QUERY" ]; then
+                save_to_history "$USER_QUERY"
+            fi
+
 			echo -e "$HIDE_CURSOR"
 			
 			# Check if user wants to quit

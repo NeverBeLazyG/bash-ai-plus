@@ -1,18 +1,18 @@
 #!/bin/bash
 # -*- Mode: sh; coding: utf-8; indent-tabs-mode: t; tab-width: 4 -*-
 
-REPO_OWNER="Hezkore"
-REPO_NAME="bash-ai"
+REPO_OWNER="NeverBeLazyG"
+REPO_NAME="bash-ai-plus"
 REPO_BRANCH="main"
-REPO_SCRIPT="bai.sh"
+REPO_SCRIPT="baip.sh"
 SCRIPT_URL="https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${REPO_BRANCH}/${REPO_SCRIPT}"
 BIN_DIR="/usr/local/bin"
-BIN_NAME="bai"
+BIN_NAME="baip"
 TMP_FILE=$(mktemp)
 
 # Download the script file
 echo
-echo "Downloading Bash AI..."
+echo "Downloading Bash AI Plus..."
 curl -q --fail --location --progress-bar --output "$TMP_FILE" "$SCRIPT_URL"
 ret=$?
 echo
@@ -32,7 +32,7 @@ if [ ! -s "$TMP_FILE" ]; then # file exists but is empty
 fi
 
 # Move the temp file to bin dir with a proper name
-echo "Installing Bash AI to $BIN_DIR..."
+echo "Installing Bash AI Plus to $BIN_DIR..."
 sudo mv "$TMP_FILE" "$BIN_DIR/$BIN_NAME"
 if [ ! -f "$BIN_DIR/$BIN_NAME" ]; then
 	echo "Failed to install Bash AI to $BIN_DIR"
@@ -49,6 +49,6 @@ fi
 # Done!
 echo
 echo "Installation completed successfully!"
-echo "Run '${BIN_NAME}' to start Bash AI (you may need to restart your terminal)"
+echo "Run '${BIN_NAME}' to start Bash AI Plus (you may need to restart your terminal)"
 echo "Visit https://github.com/${REPO_OWNER}/${REPO_NAME} for more information"
 exit 0

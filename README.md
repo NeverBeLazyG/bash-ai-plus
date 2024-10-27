@@ -1,7 +1,8 @@
 # Bash AI
 
-Bash AI _(bai)_ is an advanced Bash shell script functioning as an AI-powered terminal assistant, inspired by [Your AI](https://github.com/ekkinox/yai).\
-Leveraging the newest OpenAI's capabilities, it allows you to ask questions and perform terminal-based tasks using natural language. It provides answers and command suggestions based on your input and allows you to execute or edit the suggested commands if desired.
+### Bash AI Plus _(baip)_ is an advanced Bash shell script functioning as an AI-powered terminal assistant, with Prompt HISTORY functionality. The history function is what it makes it different to the Original script by Hezkore/bash-ai. Just press arrow keys to view your Prompt history like you would use in in a normal CLI.
+
+Leveraging the newest OpenAI's capabilities, it allows you to ask questions and perform terminal-based tasks using natural language (English, German etc.). It provides answers and command suggestions based on your input and allows you to execute or edit the suggested commands if desired.
 
 Bash AI is not only powerful out of the box, but also expandable!\
 With its plugin architecture, you can easily add your own tools, thereby empowering Bash AI to accomplish even more, and extending its functionality beyond its original capabilities.
@@ -57,13 +58,15 @@ Bash AI offers the following features:
 1. To setup Bash AI quickly, you can run the following command:
 
 ```bash
-curl -sS https://raw.githubusercontent.com/hezkore/bash-ai/main/install.sh | bash
+curl -sS https://github.com/NeverBeLazyG/bash-ai-plus/main/install.sh | bash
 ```
 
-> [!WARNING]
-> Never run unknown scripts without reviewing them for safety. Read the install script [here](https://raw.githubusercontent.com/hezkore/bash-ai/main/install.sh).
+Be sure to have curl and jq (sudo apt install jq), installed before running. 
 
-2. Run `bai` to start Bash AI.
+> [!WARNING]
+> Never run unknown scripts without reviewing them for safety. Read the install script [here](https://github.com/NeverBeLazyG/bash-ai-plus/main/install.sh).
+
+2. Run `baip` to start Bash AI Plus.
 
 <details>
 <summary><b>Manual Setup</b></summary>
@@ -71,7 +74,7 @@ curl -sS https://raw.githubusercontent.com/hezkore/bash-ai/main/install.sh | bas
 1. Clone or download the repository:
 
 	```bash
-	git clone https://github.com/hezkore/bash-ai.git
+	git clone https://github.com/NeverBeLazyG/bash-ai-plus
 	```
 2. Make the script executable:
 
@@ -85,18 +88,18 @@ curl -sS https://raw.githubusercontent.com/hezkore/bash-ai/main/install.sh | bas
 	./bai.sh
 	```
 
-*  _(Optional)_ For convenience, you can create a shortcut to the `bai.sh` script. There are two ways to do this:
+*  _(Optional)_ For convenience, you can create a shortcut to the `baip.sh` script. There are two ways to do this:
 
-	* Create a symbolic link in `/usr/local/bin`. This will allow you to run the script from anywhere, without having to type the full path. Replace `path/to/bai.sh` with the actual path to the `bai.sh` script:
+	* Create a symbolic link in `/usr/local/bin`. This will allow you to run the script from anywhere, without having to type the full path. Replace `path/to/baip.sh` with the actual path to the `baip.sh` script:
 
 		```bash
-		ln -s path/to/bai.sh /usr/local/bin/bai
+		ln -s path/to/bai.sh /usr/local/bin/baip
 		```
 
-	* Alternatively, you can create an alias for the `bai.sh` script in your `.bashrc` file. This will also allow you to execute the script using the `bai` command, reducing the need for typing the full path to the script each time. Replace `path/to/bai.sh` with the actual path to the `bai.sh` script:
+	* Alternatively, you can create an alias for the `baip.sh` script in your `.bashrc` file. This will also allow you to execute the script using the `baip` command, reducing the need for typing the full path to the script each time. Replace `path/to/baip.sh` with the actual path to the `baip.sh` script:
 
 		```conf
-		alias bai='path/to/bai.sh'
+		alias bai='path/to/baip.sh'
 		```
 
 </details>
@@ -113,15 +116,15 @@ You must provide a [OpenAI API key](https://platform.openai.com/api-keys) in the
 > [!CAUTION]
 > Keeping the key in a plain text file is dangerous, and it is your responsibility to keep it secure.
 
-You can also change the [GPT model](https://platform.openai.com/docs/models), [temperature](https://platform.openai.com/docs/api-reference/chat/create#chat-create-temperature) and many other things in this file.
+You can also change the [GPT model](https://platform.openai.com/docs/models) (the default model is set to gpt-4o-mini), [temperature](https://platform.openai.com/docs/api-reference/chat/create#chat-create-temperature) and many other things in this file.
 
 ## Usage
 
-Bash AI operates in two modes: Interactive Mode and Command Mode.
+Bash AI Plus operates in two modes: Interactive Mode and Command Mode.
 
-To enter Interactive Mode, you simply run `bai` without any request. This allows you to continuously interact with Bash AI without needing to re-run the command.
+To enter Interactive Mode, you simply run `baip` without any request. This allows you to continuously interact with Bash AI without needing to re-run the command.
 
-In Command Mode, you run `bai` followed by your request, like so: `bai your request here`
+In Command Mode, you run `baip` followed by your request, like so: `baip your request here`
 
 Example usage:
 
@@ -138,7 +141,7 @@ bai what is the current time?
 
 Plugins are OpenAI tools that expand Bash AI's functionality, but they are not included in the default Bash AI setup.\
 All tools should be placed in your `~/.bai_tools` directory.\
-You can see which tools are currently installed by running `bai`, and Bash AI will list them for you.
+You can see which tools are currently installed by running `baip`, and Bash AI will list them for you.
 
 Tools are nothing more than a shell script with a `init` and `execute` function.\
 You can find examples and available tools in the [tools folder](https://github.com/Hezkore/bash-ai/tree/main/tools).\
@@ -147,7 +150,7 @@ Feel free to move them to your `~/.bai_tools` directory to enable them!
 ## Known Issues
 
 - In Command Mode, avoid using single quotes in your requests.\
-	For instance, the command `bai what's the current time?` will not work. However, both `bai "what's the current time?"` and `bai what is the current time?` will execute successfully.\
+	For instance, the command `baip what's the current time?` will not work. However, both `baip "what's the current time?"` and `baip what is the current time?` will execute successfully.\
 	Please note that this issue is specific to the terminal, and does not occur in Interactive Mode.
 
 ## Prerequisites
