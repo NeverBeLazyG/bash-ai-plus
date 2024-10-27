@@ -61,6 +61,9 @@ Bash AI offers the following features:
 - **Vim Awareness**\
 	Automatically detects if you are using Vim and provides Vim-specific suggestions.
 
+- **HISTORY like in a CLI**\
+	The history function is what it makes it different to the Original script by Hezkore/bash-ai.
+
 ## Setup
 
 1. To setup Bash AI quickly, you can run the following command:
