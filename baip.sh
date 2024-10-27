@@ -28,7 +28,7 @@ if [ ${#DISTRO_INFO} -le 1 ]; then
 	DISTRO_INFO="Unknown"
 fi
 
-# Version of Bash AI
+# Version of Bash AI Plus
 VERSION="1.0.6"
 
 # Global variables
@@ -471,7 +471,7 @@ while [ "$INTERACTIVE_MODE" = true ] || [ "$NEEDS_TO_RUN" = true ] || [ "$AWAIT_
             
             # No query, prompt user for query with history support		
 			echo -ne "$SHOW_CURSOR"
-			read -e -r -p "Bash AI> " USER_QUERY
+			read -e -r -p "🤖 Bash AI Plus> " USER_QUERY
 
 			            # Save valid input to history
             if [ -n "$USER_QUERY" ]; then
