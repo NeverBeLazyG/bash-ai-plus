@@ -85,13 +85,13 @@ Be sure to have curl and jq (sudo apt install jq), installed before running.
 2. Make the script executable:
 
 	```bash
-	chmod +x bai.sh
+	chmod +x baip.sh
 	```
 
 3. Execute Bash AI:
 
 	```bash
-	./bai.sh
+	./baip.sh
 	```
 
 *  _(Optional)_ For convenience, you can create a shortcut to the `baip.sh` script. There are two ways to do this:
@@ -99,23 +99,23 @@ Be sure to have curl and jq (sudo apt install jq), installed before running.
 	* Create a symbolic link in `/usr/local/bin`. This will allow you to run the script from anywhere, without having to type the full path. Replace `path/to/baip.sh` with the actual path to the `baip.sh` script:
 
 		```bash
-		ln -s path/to/bai.sh /usr/local/bin/baip
+		ln -s path/to/baip.sh /usr/local/bin/baip
 		```
 
 	* Alternatively, you can create an alias for the `baip.sh` script in your `.bashrc` file. This will also allow you to execute the script using the `baip` command, reducing the need for typing the full path to the script each time. Replace `path/to/baip.sh` with the actual path to the `baip.sh` script:
 
 		```conf
-		alias bai='path/to/baip.sh'
+		alias baip='path/to/baip.sh'
 		```
 
 </details>
 
 ## Configuration
 
-On the first run, a configuration file named `bai.cfg` will be created in your `~/.config` directory.
+On the first run, a configuration file named `baip.cfg` will be created in your `~/.config` directory.
 
 > [!IMPORTANT]
-> Always remove `bai.cfg` before updating Bash AI to avoid compatibility issues.
+> Always remove `baip.cfg` before updating Bash AI to avoid compatibility issues.
 
 You must provide a [OpenAI API key](https://platform.openai.com/api-keys) in the `key=` field of this file. The [OpenAI API key](https://platform.openai.com/api-keys) can be obtained from your [OpenAI account](https://platform.openai.com/api-keys).
 
@@ -135,23 +135,23 @@ In Command Mode, you run `baip` followed by your request, like so: `baip your re
 Example usage:
 
 ```
-bai create a new directory with a name of your choice, then create a text file inside it
+baip create a new directory with a name of your choice, then create a text file inside it
 ```
 
 You can also ask questions  by ending your request with a question mark:
 ```
-bai what is the current time?
+baip what is the current time?
 ```
 
 ## Plugins and tools
 
 Plugins are OpenAI tools that expand Bash AI's functionality, but they are not included in the default Bash AI setup.\
-All tools should be placed in your `~/.bai_tools` directory.\
+All tools should be placed in your `~/.baip_tools` directory.\
 You can see which tools are currently installed by running `baip`, and Bash AI will list them for you.
 
 Tools are nothing more than a shell script with a `init` and `execute` function.\
 You can find examples and available tools in the [tools folder](https://github.com/Hezkore/bash-ai/tree/main/tools).\
-Feel free to move them to your `~/.bai_tools` directory to enable them!
+Feel free to move them to your `~/.baip_tools` directory to enable them!
 
 ##  The history function is what it makes it different to the Original script by Hezkore/bash-ai.
 
